@@ -10,6 +10,7 @@
                 <div class="mb-4 w-50 mx-auto">
                     <label class="text-capitalize">verify code</label>
                     <input type="text" class="form-control" formControlName="resetCode">
+                    <p class="alert alert-danger fw-bold text-capitalize" *ngIf="verifying.get('resetCode')?.errors?.['required'] && verifying.get('resetCode')?.touched">verify code is required</p>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn bg-main text-light" [disabled]="verifying.invalid">Verify <i class="fa-solid fa-arrows-spin fa-spin" *ngIf="isLoading"></i></button>

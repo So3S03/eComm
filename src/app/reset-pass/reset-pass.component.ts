@@ -27,6 +27,8 @@ export class ResetPassComponent {
     this._AuthApiService.newPass(data.value).subscribe({
       next: (data)=>{
         this.successMsg = data.token;
+        localStorage.removeItem('vCode');
+        localStorage.removeItem('forgetBtn');
         setTimeout(()=>{
           this._Router.navigate(['/logIn']);
         },2000)

@@ -21,6 +21,7 @@ export class ForgetPassComponent {
     this._AuthApiService.forgetPass(data.value).subscribe({
       next: (res) => {
         if (res.statusMsg == 'success') {
+          localStorage.setItem('forgetBtn', 'The Btn has been clicked');
           this._Router.navigate(['/verifyCode']);
         }
         this.isLoading = false;

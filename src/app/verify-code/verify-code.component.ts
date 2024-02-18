@@ -22,6 +22,7 @@ export class VerifyCodeComponent {
     this._AuthApiService.verifyCode(code.value).subscribe({
       next: (data)=>{
         if (data.status == 'Success'){
+          localStorage.setItem('vCode', 'vCode is Good');
           this.validCode = true;
           setTimeout(()=>{
             this._Router.navigate(['/resetPass']);

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 export interface userData {
   name?: string;
   email?: string;
@@ -17,8 +17,7 @@ export interface userData {
 export class AuthApiService {
   constructor(private _HttpClient: HttpClient) {}
   baseURL: string = `https://ecommerce.routemisr.com`;
-  userData!:any
-  decodedData!:any
+  userData:BehaviorSubject<any> = new BehaviorSubject(null)
   signUpData(body: userData): Observable<any> {
     return this._HttpClient.post(`${this.baseURL}/api/v1/auth/signup`,body);
   }
@@ -26,9 +25,9 @@ export class AuthApiService {
     return this._HttpClient.post(`${this.baseURL}/api/v1/auth/signin`, body);
   }
   decodingUserData():void{
-    if(!localStorage.getItem("userData")){
-      this.userData = localStorage.getItem('userData');
-      this.decodedData = jwtDecode(this.userData)
+    if (localStorage.getItem('userData') != null) {
+      this.userData.next(localStorage.getItem('userData'));
+      this.userData.next(jwtDecode(this.userData.getValue()));
     }
   }
   forgetPass(body:userData):Observable<any>{

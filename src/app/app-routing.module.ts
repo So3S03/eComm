@@ -11,19 +11,22 @@ import { RegisterComponent } from './register/register.component';
 import { ForgetPassComponent } from './forget-pass/forget-pass.component';
 import { ResetPassComponent } from './reset-pass/reset-pass.component';
 import { VerifyCodeComponent } from './verify-code/verify-code.component';
+import { routingGuardGuard } from './routing-guard.guard';
+import { forgetPassGuard } from './forget-pass.guard';
+import { verifyCodeGuard } from './verify-code.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'logIn', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'categories', component: CategoriesComponent },
-  { path: 'brands', component: BrandsComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, canActivate:[routingGuardGuard] },
+  { path: 'cart', component: CartComponent,canActivate:[routingGuardGuard] },
+  { path: 'products', component: ProductsComponent,canActivate:[routingGuardGuard] },
+  { path: 'categories', component: CategoriesComponent,canActivate:[routingGuardGuard] },
+  { path: 'brands', component: BrandsComponent,canActivate:[routingGuardGuard] },
   { path: 'logIn', component: LogInComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgetPass', component: ForgetPassComponent },
-  { path: 'resetPass', component: ResetPassComponent },
-  { path: 'verifyCode', component: VerifyCodeComponent },
+  { path: 'resetPass', component: ResetPassComponent, canActivate:[verifyCodeGuard] },
+  { path: 'verifyCode', component: VerifyCodeComponent, canActivate:[forgetPassGuard] },
   { path: '**', component: NotFoundComponent },
 ];
 
