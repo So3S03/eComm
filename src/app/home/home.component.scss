@@ -1,0 +1,20 @@
+.innerBox {
+    transition: all 0.6s;
+}
+.innerBox:hover {
+    box-shadow: 0px 0px 10px var(--main-color);
+}
+.fav {
+    color: var(--main-color);
+    transition: all 0.6s;
+}
+.fav:hover{
+    color: rgb(176, 27, 27);
+}
+.addBtn{
+    left: -100%;
+    transition: all 0.6s;
+}
+.innerBox:hover .addBtn {
+    left: 0;
+}

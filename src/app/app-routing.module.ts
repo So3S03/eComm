@@ -14,6 +14,7 @@ import { VerifyCodeComponent } from './verify-code/verify-code.component';
 import { routingGuardGuard } from './routing-guard.guard';
 import { forgetPassGuard } from './forget-pass.guard';
 import { verifyCodeGuard } from './verify-code.guard';
+import { DetailesComponent } from './detailes/detailes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent,canActivate:[routingGuardGuard] },
   { path: 'categories', component: CategoriesComponent,canActivate:[routingGuardGuard] },
   { path: 'brands', component: BrandsComponent,canActivate:[routingGuardGuard] },
+  { path: 'details', component: DetailesComponent,canActivate:[routingGuardGuard] },
   { path: 'logIn', component: LogInComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgetPass', component: ForgetPassComponent },
