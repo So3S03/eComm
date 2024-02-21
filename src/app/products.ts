@@ -20,9 +20,11 @@ export interface Products {
 }
 
 export interface Brand {
-    _id: string;
-    name: string;
-    slug: string;
-    image?: string;
-    category?: string;
+  _id: string;
+  name: string;
+  slug: string;
+  image?: string;
+  category?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

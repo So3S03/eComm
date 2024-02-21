@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent,canActivate:[routingGuardGuard] },
   { path: 'categories', component: CategoriesComponent,canActivate:[routingGuardGuard] },
   { path: 'brands', component: BrandsComponent,canActivate:[routingGuardGuard] },
-  { path: 'details', component: DetailesComponent,canActivate:[routingGuardGuard] },
+  { path: 'details/:id', component: DetailesComponent,canActivate:[routingGuardGuard] },
   { path: 'logIn', component: LogInComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgetPass', component: ForgetPassComponent },
