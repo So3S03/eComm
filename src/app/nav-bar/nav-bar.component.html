@@ -12,6 +12,7 @@
                 <div class="navbar-nav" *ngIf="isLogin">
                     <a class="nav-link" routerLinkActive="fw-bold" routerLink="home">Home</a>
                     <a class="nav-link" routerLinkActive="fw-bold" routerLink="cart">Cart</a>
+                    <a class="nav-link" routerLinkActive="fw-bold" routerLink="wish">Wish List</a>
                     <a class="nav-link" routerLinkActive="fw-bold" routerLink="products">Products</a>
                     <a class="nav-link" routerLinkActive="fw-bold" routerLink="categories">Categories</a>
                     <a class="nav-link" routerLinkActive="fw-bold" routerLink="brands">Brands</a>
@@ -27,7 +28,7 @@
                     <i class="fa-brands fa-youtube cursor-pointer"></i>
                 </div>
                 <div class="navbar-nav">
-                    <a class="nav-link" routerLink="logIn" *ngIf="!isLogin">LogIn</a>
+                    <a class="nav-link " routerLink="logIn" *ngIf="!isLogin">LogIn</a>
                     <a class="nav-link" routerLink="register" *ngIf="!isLogin">Register</a>
                     <a class="nav-link cursor-pointer" *ngIf="isLogin" (click)="logOutMethod()">LogOut</a>
                 </div>

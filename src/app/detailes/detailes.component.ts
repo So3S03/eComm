@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../products.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { CartService } from '../cart.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-detailes',
   templateUrl: './detailes.component.html',
@@ -11,10 +13,14 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 export class DetailesComponent implements OnInit {
   constructor(
     private _ActivatedRoute: ActivatedRoute,
-    private _ProductsService: ProductsService
+    private _ProductsService: ProductsService,
+    private _CartService: CartService
   ) {}
   customOptions: OwlOptions = {
     loop: true,
+    autoplay:true,
+    autoplaySpeed:3000,
+    autoplayHoverPause:true,
     mouseDrag: true,
     touchDrag: false,
     pullDrag: false,
@@ -24,7 +30,7 @@ export class DetailesComponent implements OnInit {
     responsive: {
       0: {
         items: 1,
-      }
+      },
     },
     nav: true,
   };
@@ -44,5 +50,19 @@ export class DetailesComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+  addItem(pId: string) {
+    this._CartService.addToCart(pId).subscribe({
+      next: (res)=>{
+        Swal.fire({
+          title: `${res.status.toUpperCase()}!`,
+          text: `${res.message}!`,
+          icon: 'success',
+        });
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
   }
 }

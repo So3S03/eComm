@@ -26,8 +26,11 @@
     
     </owl-carousel-o>
 </div>
+<div class="w-75 mx-auto">
+    <input type="text" placeholder="Search For a Specific Product" class="w-75 mx-auto form-control" [(ngModel)]="searchData">
+</div>
 <div class="row g-2 py-5">
-    <div class="col-md-6 col-lg-3 overflow-hidden" *ngFor="let item of _Products">
+    <div class="col-md-6 col-lg-3 overflow-hidden" *ngFor="let item of _Products | searching:searchData">
         <div class="innerBox rounded-2 border cursor-pointer overflow-hidden m-2">
             <div [routerLink]="['/details',item._id]">
                 <div class="img">
@@ -47,10 +50,12 @@
                 </div>
             </div>
             <div class="py-2 d-flex justify-content-between align-items-center position-relative px-2">
-                <button class="btn bg-main text-light px-4 position-relative addBtn">Add <i
+                <button class="btn bg-main text-light px-4 position-relative addBtn" (click)="addItem(item._id)">Add <i
                         class="fa-solid fa-plus ms-2"></i></button>
                 <i class="fa-solid fa-heart fa-2xl fav cursor-pointer"></i>
             </div>
         </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
     </div>
 </div>

@@ -15,11 +15,13 @@ import { routingGuardGuard } from './routing-guard.guard';
 import { forgetPassGuard } from './forget-pass.guard';
 import { verifyCodeGuard } from './verify-code.guard';
 import { DetailesComponent } from './detailes/detailes.component';
+import { WishListComponent } from './wish-list/wish-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, canActivate:[routingGuardGuard] },
   { path: 'cart', component: CartComponent,canActivate:[routingGuardGuard] },
+  { path: 'wish', component: WishListComponent,canActivate:[routingGuardGuard] },
   { path: 'products', component: ProductsComponent,canActivate:[routingGuardGuard] },
   { path: 'categories', component: CategoriesComponent,canActivate:[routingGuardGuard] },
   { path: 'brands', component: BrandsComponent,canActivate:[routingGuardGuard] },

@@ -2,7 +2,7 @@
     transition: all 0.6s;
 }
 .innerBox:hover {
-    box-shadow: 0px 0px 10px var(--main-color);
+    box-shadow: var(--main-shadow);
 }
 .fav {
     color: var(--main-color);
@@ -24,4 +24,15 @@
 .mh-2{
     max-height: 250px;
     min-height: 250px;
+}
+.pageNum{
+    width: 21.85px;
+    height: 29px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.6s;
+}
+.pageNum:hover {
+    background-color: var(--main-color) !important;
 }

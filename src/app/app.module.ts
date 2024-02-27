@@ -16,11 +16,15 @@ import { ForgetPassComponent } from './forget-pass/forget-pass.component';
 import { VerifyCodeComponent } from './verify-code/verify-code.component';
 import { ResetPassComponent } from './reset-pass/reset-pass.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { SearchingPipe } from './searching.pipe';
+import { WishListComponent } from './wish-list/wish-list.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AddHeaderInterceptor } from './add-header.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +41,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     ForgetPassComponent,
     VerifyCodeComponent,
     ResetPassComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SearchingPipe,
+    WishListComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,8 +53,16 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     RouterModule,
     BrowserAnimationsModule,
     CarouselModule,
+    FormsModule,
+    NgxPaginationModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddHeaderInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
