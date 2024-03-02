@@ -1,3 +1,4 @@
+import { WishListService } from './../wish-list.service';
 import { CartService } from './../cart.service';
 import { Brand, Products, request } from './../products';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private _ProductsService: ProductsService,
     private _CategoriesService: CategoriesService,
-    private _CartService: CartService
+    private _CartService: CartService,
+    private _WishListService: WishListService
   ) {}
   searchData: string = '';
   Categories: Brand[] = [];
@@ -24,7 +26,7 @@ export class HomeComponent implements OnInit {
     autoplay: true,
     autoplaySpeed: 3000,
     autoplayHoverPause: true,
-    mouseDrag: false,
+    mouseDrag: true,
     touchDrag: true,
     pullDrag: false,
     dots: false,
@@ -82,6 +84,7 @@ export class HomeComponent implements OnInit {
         console.log(err);
       },
     });
+    this._WishListService.productWish.subscribe(()=>{})
   }
   addItem(proId: string): void {
     this._CartService.addToCart(proId).subscribe({
@@ -96,5 +99,34 @@ export class HomeComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+  wish(pId: string,event:any) {
+    if(!localStorage.getItem(`product-${pId}`)){
+      localStorage.setItem(`product-${pId}`,`${pId}`)
+      this._WishListService.addProductToWishList(pId).subscribe({
+        next: (res) => {
+          Swal.fire({
+            title: `${res.status.toUpperCase()}!`,
+            text: `${res.message}!`,
+            icon: 'success',
+          });
+          event.target.classList.add('text-danger');
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }else {
+      localStorage.removeItem(`product-${pId}`);
+      this._WishListService.removeProFromWishList(pId).subscribe({
+        next:(res)=>{
+          console.log(res);
+          event.target.classList.remove('text-danger');
+        },
+        error: (err)=>{
+          console.log(err);
+        }
+      })
+    }
   }
 }

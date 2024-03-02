@@ -10,4 +10,10 @@ export class CategoriesService {
   getAllCat(): Observable<any> {
     return this._HttpClient.get(`${this.baseURL}/api/v1/categories`);
   }
+  getSpecificCat(catId:string):Observable<any>{
+    return this._HttpClient.get(`${this.baseURL}/api/v1/categories/${catId}`)
+  }
+  getCatProduct(catId:string):Observable<any>{
+    return this._HttpClient.get(`${this.baseURL}/api/v1/products?category[in]=${catId}`)
+  }
 }

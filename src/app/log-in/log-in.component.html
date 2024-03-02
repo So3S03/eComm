@@ -10,7 +10,7 @@
         </div>
         <div class="mb-4">
             <label>Password :</label>
-            <input type="text" formControlName="password" class="form-control">
+            <input type="password" formControlName="password" class="form-control">
             <p class="alert alert-danger fw-bold text-capitalize" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors">enter a valid password</p>
         </div>
         <div class="text-end">

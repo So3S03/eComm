@@ -1,3 +1,4 @@
+import { OrdersService } from './../orders.service';
 import { Data } from './../cart-items';
 import { CartService } from './../cart.service';
 import { Component, OnInit } from '@angular/core';
@@ -9,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  constructor(private _CartService: CartService) {}
+  constructor(private _CartService: CartService, private _OrdersService:OrdersService) {}
   cartProducts!: Data;
   ngOnInit(): void {
     this._CartService.getCartItems().subscribe({
