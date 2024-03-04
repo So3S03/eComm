@@ -143,6 +143,12 @@ a:hover {
     .cover{
         height: 183px;
     }
+            .w-r-100{
+        width: 100% !important;
+    }
+    .gap-r-1{
+        gap: 1.25rem !important;
+    }
 }
 
 /* Portrait tablet to landscape and desktop */
@@ -150,6 +156,13 @@ a:hover {
         .oF-r-contain{
         object-fit: contain !important;
     }
+        .w-5 {
+        width: 15% !important;
+    }
+    .w-13 {
+        width: 23% !important;
+    }
+
 }
 
 /* Landscape phone to portrait tablet */
@@ -167,5 +180,11 @@ a:hover {
     }
     .gap-r-1{
         gap: 1.25rem;
+    }
+    .w-5 {
+        width: 15% !important;
+    }
+    .w-13 {
+        width: 23% !important;
     }
 }
