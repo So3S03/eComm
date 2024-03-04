@@ -35,6 +35,7 @@ export class LogInComponent {
         this.isLoading = false;
       },
       error: (err) => {
+        console.log(err);
         this.errMsg = err.error.message;
         this.isLoading = false;
       },

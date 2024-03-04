@@ -1,14 +1,14 @@
 <div class="row mt-3 g-0">
     <div class="col-lg-9">
         <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide ><img src="../../assets/images/slider-2.jpeg" alt=""></ng-template>
-            <ng-template carouselSlide ><img src="../../assets/images/grocery-banner.png" alt=""></ng-template>
-            <ng-template carouselSlide ><img src="../../assets/images/grocery-banner-2.jpeg" alt=""></ng-template>
+            <ng-template carouselSlide ><img height="366" src="./assets/images/slider-2.jpeg" alt=""></ng-template>
+            <ng-template carouselSlide ><img height="366" src="./assets/images/grocery-banner.png" alt=""></ng-template>
+            <ng-template carouselSlide ><img height="366" src="./assets/images/grocery-banner-2.jpeg" alt=""></ng-template>
         </owl-carousel-o>
     </div>
     <div class="col-lg-3 ">
-        <div><img src="../../assets/images/slider-image-2.jpeg" alt="" class="w-100 mh"></div>
-        <div><img src="../../assets/images/slider-image-1.jpeg" alt="" class="w-100 mh"></div>
+        <div><img src="./assets/images/slider-image-2.jpeg" alt="" class="w-100 mh"></div>
+        <div><img src="./assets/images/slider-image-1.jpeg" alt="" class="w-100 mh"></div>
     </div>
 </div>
 <div class="my-3">
@@ -52,7 +52,7 @@
             <div class="py-2 d-flex justify-content-between align-items-center position-relative px-2">
                 <button class="btn bg-main text-light px-4 position-relative addBtn" (click)="addItem(item._id)">Add <i
                         class="fa-solid fa-plus ms-2"></i></button>
-                <i class="fa-solid fa-heart fa-2xl fav cursor-pointer" (click)="wish(item.id,$event)" data-wish="false"></i>
+                <i class="fa-solid fa-heart fa-2xl fav cursor-pointer" [ngClass]="{'text-danger': wishListData.includes(item._id)}" (click)="wish(item.id,$event)" ></i>
             </div>
         </div>
     </div>

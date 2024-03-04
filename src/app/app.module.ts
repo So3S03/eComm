@@ -25,6 +25,8 @@ import { SearchingPipe } from './searching.pipe';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AddHeaderInterceptor } from './add-header.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingInterceptor } from './loading.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +57,7 @@ import { AddHeaderInterceptor } from './add-header.interceptor';
     CarouselModule,
     FormsModule,
     NgxPaginationModule,
+    NgxSpinnerModule
   ],
   providers: [
     {
@@ -62,6 +65,11 @@ import { AddHeaderInterceptor } from './add-header.interceptor';
       useClass: AddHeaderInterceptor,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
 })

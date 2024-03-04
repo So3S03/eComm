@@ -3,3 +3,11 @@
   <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>
+<ngx-spinner bdColor="rgba(255, 255, 255, 1)" template="<img src='../assets/images/freshcart-logo.svg'>" size='large' class="w-100">
+</ngx-spinner>
+<div class="cart cursor-pointer" [routerLink]="['/cart']" *ngIf="isLogin">
+  <i class="fa-solid fa-cart-shopping fa-xl"></i>
+</div>
+<div class="wish bg-danger cursor-pointer" [routerLink]="['/wish']" *ngIf="isLogin">
+  <i class="fa-solid fa-heart fa-xl text-light"></i>
+</div>

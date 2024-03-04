@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CustomerData } from './customer-data';
+import { CustomerData, ShippingAddress } from './customer-data';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,13 @@ import { CustomerData } from './customer-data';
 export class OrdersService {
   constructor(private _HttpClient: HttpClient) {}
   baseURL: string = `https://ecommerce.routemisr.com`;
-  createCashOrder(customerData:CustomerData,cartId:string): Observable<any> {
-    return this._HttpClient.post(`${this.baseURL}/api/v1/orders/${cartId}`,customerData)
+  createCashOrder(customerData:ShippingAddress,cartId:string): Observable<any> {
+    return this._HttpClient.post(`${this.baseURL}/api/v1/orders/${cartId}`,{shippingAddress: customerData})
   }
-  
+  createOnlineOrder(customerData:ShippingAddress,cartId:string):Observable<any>{
+    return this._HttpClient.post(`${this.baseURL}/api/v1/orders/checkout-session/${cartId}?url=http://localhost:4200`,{shippingAddress: customerData})
+  }
+  getUserOrders(cartId:string):Observable<any>{
+    return this._HttpClient.get(`${this.baseURL}/api/v1/orders/user/${cartId}`)
+  }
 }

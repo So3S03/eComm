@@ -11,11 +11,12 @@ import Swal from 'sweetalert2';
 })
 export class CartComponent implements OnInit {
   constructor(private _CartService: CartService, private _OrdersService:OrdersService) {}
-  cartProducts!: Data;
+  cartProducts!: Data | null;
   ngOnInit(): void {
     this._CartService.getCartItems().subscribe({
       next: (res) => {
         this.cartProducts = res.data;
+        localStorage.setItem('userCartId', res.data.cartOwner);
       },
       error: (err) => {
         console.log(err);
@@ -70,15 +71,7 @@ export class CartComponent implements OnInit {
   clr():void{
     this._CartService.clearCart().subscribe({
       next:(res)=>{
-        this.cartProducts = {
-          _id: '',
-          cartOwner: '',
-          products: [],
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          __v: 0,
-          totalCartPrice: 0,
-        };
+        this.cartProducts = null
         Swal.fire({
           title: `${res.message.toUpperCase()}!`,
           text: `Your Cart Has Been Cleared!`,

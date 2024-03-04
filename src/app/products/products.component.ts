@@ -29,10 +29,17 @@ export class ProductsComponent implements OnInit {
         console.log(err);
       },
     });
+    this._WishListService.getUserWishList().subscribe({
+      next: (res) => {
+        let data = res.data.map((item: any) => item._id);
+        this.wishListData = data;
+      },
+    });
   }
   p!: number;
   pageSize!: number;
   total!: number;
+  wishListData!: string[];
   addItem(pId: string) {
     this._CartService.addToCart(pId).subscribe({
       next: (res) => {
@@ -60,14 +67,31 @@ export class ProductsComponent implements OnInit {
       },
     });
   }
-  wish(pId: string) {
-    this._WishListService.addProductToWishList(pId).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+  wish(pId: string, event: any) {
+    if (!this.wishListData.includes(pId)) {
+      this._WishListService.addProductToWishList(pId).subscribe({
+        next: (res) => {
+          Swal.fire({
+            title: `${res.status.toUpperCase()}!`,
+            text: `${res.message}!`,
+            icon: 'success',
+          });
+          event.target.classList.add('text-danger');
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else {
+      this._WishListService.removeProFromWishList(pId).subscribe({
+        next: (res) => {
+          console.log(res);
+          event.target.classList.add('text-danger');
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 }

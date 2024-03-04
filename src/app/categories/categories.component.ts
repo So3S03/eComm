@@ -4,6 +4,7 @@ import { Products } from '../products';
 import { CategoriesService } from './../categories.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { WishListService } from '../wish-list.service';
 
 @Component({
   selector: 'app-categories',
@@ -12,9 +13,13 @@ import Swal from 'sweetalert2';
 })
 export class CategoriesComponent implements OnInit {
   constructor(
-    private _CategoriesService: CategoriesService, private _CartService: CartService) {}
+    private _CategoriesService: CategoriesService,
+    private _CartService: CartService,
+    private _WishListService: WishListService
+  ) {}
   categories!: Categories[];
   _Products!: Products[];
+  wishListData!: string[];
   ngOnInit(): void {
     this._CategoriesService.getAllCat().subscribe({
       next: (res) => {
@@ -24,11 +29,18 @@ export class CategoriesComponent implements OnInit {
         console.log(err);
       },
     });
+    this._WishListService.getUserWishList().subscribe({
+      next: (res) => {
+        let data = res.data.map((item: any) => item._id);
+        this.wishListData = data;
+      },
+    });
   }
   showCat(catId: string) {
     this._CategoriesService.getCatProduct(catId).subscribe({
       next: (res) => {
         this._Products = res.data;
+        window.scrollTo(10000, 10000);
       },
       error: (err) => {
         console.log(err);
@@ -37,17 +49,43 @@ export class CategoriesComponent implements OnInit {
   }
   addItem(itemId: string) {
     this._CartService.addToCart(itemId).subscribe({
-      next:(res)=>{
+      next: (res) => {
         Swal.fire({
           title: `${res.status.toUpperCase()}!`,
           text: `${res.message}!`,
           icon: 'success',
         });
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
-        
-      }
-    })
+      },
+    });
+  }
+  wish(pId: string, event: any) {
+    if (!this.wishListData.includes(pId)) {
+      this._WishListService.addProductToWishList(pId).subscribe({
+        next: (res) => {
+          Swal.fire({
+            title: `${res.status.toUpperCase()}!`,
+            text: `${res.message}!`,
+            icon: 'success',
+          });
+          event.target.classList.add('text-danger');
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else {
+      this._WishListService.removeProFromWishList(pId).subscribe({
+        next: (res) => {
+          console.log(res);
+          event.target.classList.add('text-danger');
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 }

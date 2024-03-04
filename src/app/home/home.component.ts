@@ -21,10 +21,11 @@ export class HomeComponent implements OnInit {
   ) {}
   searchData: string = '';
   Categories: Brand[] = [];
+  wishListData!:string[]
   categoryOptions: OwlOptions = {
     loop: true,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 4000,
     autoplayHoverPause: true,
     mouseDrag: true,
     touchDrag: true,
@@ -84,7 +85,12 @@ export class HomeComponent implements OnInit {
         console.log(err);
       },
     });
-    this._WishListService.productWish.subscribe(()=>{})
+    this._WishListService.getUserWishList().subscribe({
+      next: (res)=>{
+        let data = res.data.map((item:any)=>item._id)
+        this.wishListData = data
+      }
+    })
   }
   addItem(proId: string): void {
     this._CartService.addToCart(proId).subscribe({
@@ -101,8 +107,7 @@ export class HomeComponent implements OnInit {
     });
   }
   wish(pId: string,event:any) {
-    if(!localStorage.getItem(`product-${pId}`)){
-      localStorage.setItem(`product-${pId}`,`${pId}`)
+    if(!this.wishListData.includes(pId)){
       this._WishListService.addProductToWishList(pId).subscribe({
         next: (res) => {
           Swal.fire({
@@ -110,18 +115,17 @@ export class HomeComponent implements OnInit {
             text: `${res.message}!`,
             icon: 'success',
           });
-          event.target.classList.add('text-danger');
+          event.target.classList.add('text-danger')
         },
         error: (err) => {
           console.log(err);
         },
       });
     }else {
-      localStorage.removeItem(`product-${pId}`);
       this._WishListService.removeProFromWishList(pId).subscribe({
         next:(res)=>{
           console.log(res);
-          event.target.classList.remove('text-danger');
+          event.target.classList.add('text-danger');
         },
         error: (err)=>{
           console.log(err);
