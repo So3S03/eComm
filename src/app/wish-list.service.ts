@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class WishListService {
   constructor(private _HttpClient: HttpClient) {}
   baseURL: string = `https://ecommerce.routemisr.com`;
-  productWish: BehaviorSubject<any> = new BehaviorSubject(null) 
+  wishNum:BehaviorSubject<any> = new BehaviorSubject(0)
   getUserWishList():Observable<any>{
     return this._HttpClient.get(`${this.baseURL}/api/v1/wishlist`);
   }

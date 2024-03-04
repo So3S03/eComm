@@ -32,6 +32,11 @@ deleteItem(pId:string) {
     this._WishListService.removeProFromWishList(pId).subscribe({
       next: ()=>{
         this.showPro();
+        this._WishListService.getUserWishList().subscribe({
+          next: (res) => {
+            this._WishListService.wishNum.next(res.count);
+          },
+        });
       },
       error: (err)=>{
         console.log(err);
@@ -42,6 +47,12 @@ deleteItem(pId:string) {
   addToCart(pId:string){
     this._CartService.addToCart(pId).subscribe({
       next: (res)=>{
+        this._CartService.carItemsNum.next(res.numOfCartItems);
+        this._WishListService.getUserWishList().subscribe({
+          next: (res) => {
+            this._WishListService.wishNum.next(res.count - 1);
+          },
+        });
         Swal.fire({
           title: `${res.status.toUpperCase()}!`,
           text: `${res.message}!`,

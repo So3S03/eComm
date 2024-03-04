@@ -3,6 +3,7 @@ import { Data } from './../cart-items';
 import { CartService } from './../cart.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -26,6 +27,8 @@ export class CartComponent implements OnInit {
   delItem(pId: string): void {
     this._CartService.removeItemFromCart(pId).subscribe({
       next: (res) => {
+        console.log(res);
+        this._CartService.carItemsNum.next(res.numOfCartItems);
         this.cartProducts = res.data;
         Swal.fire({
           title: `${res.status.toUpperCase()}!`,
@@ -57,6 +60,13 @@ export class CartComponent implements OnInit {
       if (count == 0) {
         this._CartService.removeItemFromCart(pId).subscribe({
           next: (res) => {
+            this._CartService.getCartItems().subscribe({
+              next: (res) => {
+                console.log(res);
+                this._CartService.carItemsNum.next(res.numOfCartItems);
+              },
+            });
+            this.cartProducts = null;
             this.cartProducts = res.data;
           },
           error: (err) => {
@@ -71,7 +81,8 @@ export class CartComponent implements OnInit {
   clr():void{
     this._CartService.clearCart().subscribe({
       next:(res)=>{
-        this.cartProducts = null
+        this.cartProducts = null;
+        this._CartService.carItemsNum.next(0)
         Swal.fire({
           title: `${res.message.toUpperCase()}!`,
           text: `Your Cart Has Been Cleared!`,

@@ -95,6 +95,7 @@ export class HomeComponent implements OnInit {
   addItem(proId: string): void {
     this._CartService.addToCart(proId).subscribe({
       next: (res) => {
+        this._CartService.carItemsNum.next(res.numOfCartItems)
         Swal.fire({
           title: `${res.status.toUpperCase()}!`,
           text: `${res.message}!`,
@@ -110,6 +111,7 @@ export class HomeComponent implements OnInit {
     if(!this.wishListData.includes(pId)){
       this._WishListService.addProductToWishList(pId).subscribe({
         next: (res) => {
+          this._WishListService.wishNum.next(res.data.length)
           Swal.fire({
             title: `${res.status.toUpperCase()}!`,
             text: `${res.message}!`,
@@ -124,8 +126,8 @@ export class HomeComponent implements OnInit {
     }else {
       this._WishListService.removeProFromWishList(pId).subscribe({
         next:(res)=>{
-          console.log(res);
-          event.target.classList.add('text-danger');
+          this._WishListService.wishNum.next(res.data.length);
+          event.target.classList.remove('text-danger');
         },
         error: (err)=>{
           console.log(err);

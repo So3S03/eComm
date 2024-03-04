@@ -134,3 +134,38 @@ a:hover {
 .w-30{
     width: calc(100% / 3) !important;
 }
+
+// ------------------------------------
+// ------------------------------------
+// ------------------------------------
+/* Large desktop */
+@media (max-width: 1200px) { 
+    .cover{
+        height: 183px;
+    }
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+        .oF-r-contain{
+        object-fit: contain !important;
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {  
+
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {  
+    .oF-r-contain{
+        object-fit: contain !important;
+    }
+    .w-r-100{
+        width: 100% !important;
+    }
+    .gap-r-1{
+        gap: 1.25rem;
+    }
+}

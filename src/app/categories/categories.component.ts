@@ -50,6 +50,9 @@ export class CategoriesComponent implements OnInit {
   addItem(itemId: string) {
     this._CartService.addToCart(itemId).subscribe({
       next: (res) => {
+        console.log(res);
+        console.log(res.numOfCartItems);
+        this._CartService.carItemsNum.next(res.numOfCartItems);
         Swal.fire({
           title: `${res.status.toUpperCase()}!`,
           text: `${res.message}!`,
@@ -65,6 +68,7 @@ export class CategoriesComponent implements OnInit {
     if (!this.wishListData.includes(pId)) {
       this._WishListService.addProductToWishList(pId).subscribe({
         next: (res) => {
+          this._WishListService.wishNum.next(res.data.length);
           Swal.fire({
             title: `${res.status.toUpperCase()}!`,
             text: `${res.message}!`,
@@ -79,7 +83,7 @@ export class CategoriesComponent implements OnInit {
     } else {
       this._WishListService.removeProFromWishList(pId).subscribe({
         next: (res) => {
-          console.log(res);
+          this._WishListService.wishNum.next(res.data.length);
           event.target.classList.add('text-danger');
         },
         error: (err) => {

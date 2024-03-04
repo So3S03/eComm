@@ -1,29 +1,27 @@
 <div class="row mt-3 g-0">
     <div class="col-lg-9">
         <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide ><img height="366" src="./assets/images/slider-2.jpeg" alt=""></ng-template>
-            <ng-template carouselSlide ><img height="366" src="./assets/images/grocery-banner.png" alt=""></ng-template>
-            <ng-template carouselSlide ><img height="366" src="./assets/images/grocery-banner-2.jpeg" alt=""></ng-template>
+            <ng-template carouselSlide ><img height="366" src="./assets/images/slider-2.jpeg" alt="" class="oF-r-contain"></ng-template>
+            <ng-template carouselSlide ><img height="366" src="./assets/images/grocery-banner.png" alt="" class="oF-r-contain"></ng-template>
+            <ng-template carouselSlide ><img height="366" src="./assets/images/grocery-banner-2.jpeg" alt="" class="oF-r-contain"></ng-template>
         </owl-carousel-o>
     </div>
     <div class="col-lg-3 ">
-        <div><img src="./assets/images/slider-image-2.jpeg" alt="" class="w-100 mh"></div>
-        <div><img src="./assets/images/slider-image-1.jpeg" alt="" class="w-100 mh"></div>
+        <div><img src="./assets/images/slider-image-2.jpeg" alt="" class="w-100 mh cover"></div>
+        <div><img src="./assets/images/slider-image-1.jpeg" alt="" class="w-100 mh cover"></div>
     </div>
 </div>
 <div class="my-3">
     <h3>Shop Popular Categories</h3>
     <owl-carousel-o [options]="categoryOptions">
-    
         <ng-container *ngFor="let slide of Categories">
             <ng-template carouselSlide [id]="slide._id">
                 <div>
-                    <img [src]="slide.image" [alt]="slide.name" [title]="slide.slug" class="mh-2 object-fit-cover">
+                    <img [src]="slide.image" [alt]="slide.name" [title]="slide.slug" class="mh-2 object-fit-cover oF-r-contain">
                     <h4 class="fw-bold text-center">{{slide.name}}</h4>
                 </div>
             </ng-template>
         </ng-container>
-    
     </owl-carousel-o>
 </div>
 <div class="w-75 mx-auto">

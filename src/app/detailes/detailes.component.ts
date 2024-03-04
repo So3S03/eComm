@@ -54,6 +54,7 @@ export class DetailesComponent implements OnInit {
   addItem(pId: string) {
     this._CartService.addToCart(pId).subscribe({
       next: (res)=>{
+        this._CartService.carItemsNum.next(res.numOfCartItems);
         Swal.fire({
           title: `${res.status.toUpperCase()}!`,
           text: `${res.message}!`,
